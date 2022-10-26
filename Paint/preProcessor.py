@@ -20,8 +20,8 @@ class PreProcessor:
         load_img_rz.reshape(28,28,1)
         Image.fromarray(load_img_rz)
         print("After resizing:",load_img_rz.shape)
-        plt.imshow(load_img_rz)
-        plt.show()
+        # plt.imshow(load_img_rz)
+        # plt.show()
         return load_img_rz
 
 
