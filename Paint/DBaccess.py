@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 from imgarray import save_array_img, load_array_img
 from os import fsync
-import preProcessor
+from datetime import date
 
 
 class connection:
@@ -31,19 +31,39 @@ class connection:
             save_array_img(numpy_array, save_path, img_format='png')
             self.sync(fh)
 
+    def getImgId(self):
+        sql = "SELECT MAX(imgid) FROM images"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        return result[0][0]
 
-    def storeImage(self, filename, imgid, date, author):
-        pp = preProcessor.PreProcessor()
-        img = pp.dta(filename)
+    def storeImage(self, author, res):
+        def preProcess(img):
+            im = np.array(Image.open(img))
+            im = np.dot(im[...,:3], [0.299, 0.587, 0.144])
+            im_trim = im[50:750, 50:750]
+            img = Image.fromarray(im_trim)
+            load_img_rz = np.array(img.resize((28,28)))
+            load_img_rz.reshape(28,28,1)
+            Image.fromarray(load_img_rz)
+            return load_img_rz
+        img = preProcess("image.png")
         self.save_array_to_PNG(img, "image2.png")
         sql_table = 'images'
         image_column_name = 'your_blob_column_name'
         file = self.convertBinary("image2.png")
+        if(self.getImgId() == None):
+            imgid = 0
+        else:
+            imgid = self.getImgId() + 1
+        today = date.today()
+        tdate = str(today.strftime("%Y-%m-%d"))
+
         
 
         try:
-            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image) VALUES (%s,%s,%s,%s)"""
-            insert_blob_tuple = (imgid, date, author, file)
+            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result) VALUES (%s,%s,%s,%s,%s)"""
+            insert_blob_tuple = (imgid, tdate, author, file, res)
             result = self.cursor.execute(sql_insert_blob_query, insert_blob_tuple)
             self.conn.commit()
 

@@ -9,7 +9,7 @@ class Interface:
         self.last_pos = None
         self.w = 10
         self.drawcolor = (255, 255, 255)
-        self.blacklist = ["Key", "Lollipop", "Mushroom", "Helmet", "Mountain", "Ladder", "Triangle", "Square", "Spoon", "Door", "Screwdriver"]
+        self.blacklist = ["Key", "Lollipop", "Mushroom", "Helmet", "Mountain", "Ladder", "Triangle", "Square", "Spoon", "Door", "Screwdriver", "Tooth", "Beard", "Baseball", "Eyeglasses", "Line", "Face", "Eye", "pencil", "Simley face", "Baseball bat", "Grapes"]
 
     def getPrompt(self):
         return self.prompt
@@ -34,7 +34,7 @@ class Interface:
         screen.fill(bgcolor)
         pg.font.init()
         my_font = pg.font.SysFont('Comic Sans MS', 25)
-        text_surface = my_font.render(self.prompt[0:len(self.prompt)-1], False, (0,0,0))
+        text_surface = my_font.render(self.prompt, False, (0,0,0))
         screen.blit(text_surface, (350,10))
         pg.draw.rect(screen, (0,0,0), pg.Rect(50, 50, 700, 700))
         #create submit button
@@ -110,3 +110,18 @@ class Interface:
                         return True
         pg.quit()
 
+
+if __name__ == "__main__":
+
+    def genPrompt():
+        f = open("labels.txt","r")
+        labels = f.readlines()
+        return (random.choice(labels).capitalize().replace('_', ' ').replace('\n', ''))
+    interface = Interface(800, 800)
+    for i in range(20):
+        while True:
+            p = genPrompt()
+            if(p not in interface.blacklist):
+                print(p, " --> ", interface.blacklist) 
+                break
+        interface.blacklist.append(p)
