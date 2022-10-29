@@ -4,7 +4,7 @@ from PIL import Image
 from imgarray import save_array_img, load_array_img
 from os import fsync
 from datetime import date
-
+import base64
 
 class connection:
     def __init__(self, uname, pwd):
@@ -12,7 +12,8 @@ class connection:
         host="localhost",
         user=uname,
         password=pwd,
-        database = "paint"
+        database = "paint",
+        auth_plugin='mysql_native_password'
         )
         self.cursor = self.conn.cursor()
 
@@ -62,8 +63,8 @@ class connection:
         
 
         try:
-            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result) VALUES (%s,%s,%s,%s,%s)"""
-            insert_blob_tuple = (imgid, tdate, author, file, res)
+            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image) VALUES (%s,%s,%s,%s)"""
+            insert_blob_tuple = (imgid, tdate, author, file)
             result = self.cursor.execute(sql_insert_blob_query, insert_blob_tuple)
             self.conn.commit()
 
@@ -73,4 +74,13 @@ class connection:
     def close(self):
         self.conn.close()
 
+    def getImg(self):
+        i = 1
+        sql = "SELECT image FROM images"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+        for row in result:
+            with open("imageToSave{}.png".format(i), "wb") as fh:
+                fh.write(row[0])
+            i += 1
 
