@@ -37,7 +37,7 @@ class connection:
         result = self.cursor.fetchall()
         return result[0][0]
 
-    def storeImage(self, author, res):
+    def storeImage(self, author, res, prompt):
         def preProcess(img):
             im = np.array(Image.open(img))
             im = np.dot(im[...,:3], [0.299, 0.587, 0.144])
@@ -62,8 +62,8 @@ class connection:
         
 
         try:
-            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result) VALUES (%s,%s,%s,%s,%s)"""
-            insert_blob_tuple = (imgid, tdate, author, file, res)
+            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result, label) VALUES (%s,%s,%s,%s,%s,%s)"""
+            insert_blob_tuple = (imgid, tdate, author, file, res, prompt)
             result = self.cursor.execute(sql_insert_blob_query, insert_blob_tuple)
             self.conn.commit()
 
@@ -73,4 +73,16 @@ class connection:
     def close(self):
         self.conn.close()
 
+    def getHistory(self, user):
+        sql = "SELECT result FROM images WHERE author = %s"
+        self.cursor.execute(sql, (user,))
+        result = self.cursor.fetchall()
+        passc = 0
+        failc = 0
+        for i in result:
+            if(i[0] == "pass"):
+                passc+=1
+            else:
+                failc+=1
+        return [passc, failc]
 
