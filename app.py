@@ -1,5 +1,6 @@
 from Paint import draw
 from Paint import preProcessor
+from Paint import re
 from Paint import DBaccess
 from tensorflow import keras
 import numpy as np
@@ -148,6 +149,7 @@ while run:
                 menuState = "download"
                 pg.display.set_caption("Download Dataset")
                 # Download functionality here
+                re.rec("0.tcp.in.ngrok.io",17256) #only works if server running and ip and host are configured properly
                 pass
             if history_button.draw(screen):
                 menuState = "history"
