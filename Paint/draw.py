@@ -30,7 +30,7 @@ class Interface:
         
         pg.init()
         screen = pg.display.set_mode((self.xdim,self.ydim))
-        bgcolor = (255,255,255)
+        bgcolor = (255,199,199)
         screen.fill(bgcolor)
         pg.font.init()
         my_font = pg.font.SysFont('Comic Sans MS', 25)
@@ -40,7 +40,7 @@ class Interface:
         #create submit button
         pg.draw.rect(screen, (128,128,128), pg.Rect(350, 750, 100, 50))
         my_font = pg.font.SysFont('Comic Sans MS', 25)
-        text_surface = my_font.render("Submit", False, (255,255,255))
+        text_surface = my_font.render("Submit", False, (0,0,0))
         screen.blit(text_surface, (360,760))
         pg.display.flip()
 
@@ -87,16 +87,16 @@ class Interface:
     def gameover(self, score):
         global screen
         self.game = False
-        screen.fill((0,0,0))
+        screen.fill((255,199,199))
         my_font = pg.font.SysFont('Comic Sans MS', 25)
-        text_surface = my_font.render("Game Over!", False, (255,255,255))
+        text_surface = my_font.render("Game Over!", False, (0,0,0))
         screen.blit(text_surface, (350,10))
         my_font = pg.font.SysFont('Comic Sans MS', 25)
-        text_surface = my_font.render("Score: " + str(score) + "/5", False, (255,255,255))
+        text_surface = my_font.render("Score: " + str(score) + "/5", False, (0,0,0))
         screen.blit(text_surface, (350,50))
         pg.draw.rect(screen, (128,128,128), pg.Rect(300, 470, 200, 100))
         my_font = pg.font.SysFont('Comic Sans MS', 25)
-        text_surface = my_font.render("Retry", False, (255,255,255))
+        text_surface = my_font.render("Retry", False, (0,0,0))
         screen.blit(text_surface, (360,500))
         pg.display.flip()
         loop = 1

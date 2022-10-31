@@ -38,7 +38,7 @@ class connection:
         result = self.cursor.fetchall()
         return result[0][0]
 
-    def storeImage(self, author, res):
+    def storeImage(self, author, res, prompt):
         def preProcess(img):
             im = np.array(Image.open(img))
             im = np.dot(im[...,:3], [0.299, 0.587, 0.144])
@@ -63,8 +63,8 @@ class connection:
         
 
         try:
-            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image) VALUES (%s,%s,%s,%s)"""
-            insert_blob_tuple = (imgid, tdate, author, file)
+            sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result, label) VALUES (%s,%s,%s,%s,%s,%s)"""
+            insert_blob_tuple = (imgid, tdate, author, file, res, prompt)
             result = self.cursor.execute(sql_insert_blob_query, insert_blob_tuple)
             self.conn.commit()
 
