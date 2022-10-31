@@ -83,4 +83,5 @@ class connection:
             with open("imageToSave{}.png".format(i), "wb") as fh:
                 fh.write(row[0])
             i += 1
+        return i
 

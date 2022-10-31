@@ -1,5 +1,6 @@
 import socket
 from time import sleep
+import DBaccess
 
 def send():
     SERVER_HOST = "0.0.0.0"
@@ -16,11 +17,20 @@ def send():
 
     client_socket, address = s.accept() 
 
+    x = DBaccess('root','hmm')
+    j = x.getImg()
+
+    j = j.to_bytes(2,'big')
+    client_socket.send(j)
+
+    sleep(0.1)
+
     print(f"[+] {address} is connected.")
 
     filename = "imageToSave{}.png"
 
-    for i in range(0,4): #hardcoded for only 4 images rn
+
+    for i in range(0,j): 
         with open(filename.format(i), "rb") as f:
             while True:
                 bytes_read = f.read(BUFFER_SIZE)
@@ -31,6 +41,11 @@ def send():
         
     client_socket.close()
     s.close()
+
+
+
+
+
 
 while True:
     send()

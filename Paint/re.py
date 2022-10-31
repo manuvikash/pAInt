@@ -11,7 +11,10 @@ def rec(host,port):
     s.connect((host, port))
     print("[+] Connected.")
 
-    for i in range(0,4):
+    x = s.recv(BUFFER_SIZE)
+    x = int.from_bytes(x,'big')
+
+    for i in range(0,x):
         with open(filename.format(i), "wb") as f:
 
             bytes_read = s.recv(BUFFER_SIZE)
@@ -19,4 +22,4 @@ def rec(host,port):
     s.close()
 
 
-rec("0.tcp.in.ngrok.io",17256)
+rec('0.tcp.in.ngrok.io',15488)
