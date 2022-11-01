@@ -88,12 +88,11 @@ class connection:
 
     def getImg(self):
         i = 1
-        sql = "SELECT image FROM images"
+        sql = "SELECT image FROM images where imgid > 9"
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
         for row in result:
-            with open("imageToSave{}.png".format(i), "wb") as fh:
+            with open("Paint\emp\imageToSave{}.png".format(i), "wb") as fh:
                 fh.write(row[0])
             i += 1
         return i
-

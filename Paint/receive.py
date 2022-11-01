@@ -13,6 +13,7 @@ def rec(host,port):
 
     x = s.recv(BUFFER_SIZE)
     x = int.from_bytes(x,'big')
+    print(x)
 
     for i in range(0,x):
         with open(filename.format(i), "wb") as f:
@@ -22,4 +23,4 @@ def rec(host,port):
     s.close()
 
 
-# rec('0.tcp.in.ngrok.io',15488)
+rec('127.0.0.1',5001)

@@ -12,13 +12,13 @@ def send():
 
     s.bind((SERVER_HOST, SERVER_PORT))
 
+    x = DBaccess.connection('root','hmm')
+    j = x.getImg()
+    t =j
     s.listen(5)
     print(f"[*] Listening as {SERVER_HOST}:{SERVER_PORT}")
 
     client_socket, address = s.accept() 
-
-    x = DBaccess('root','hmm')
-    j = x.getImg()
 
     j = j.to_bytes(2,'big')
     client_socket.send(j)
@@ -27,10 +27,10 @@ def send():
 
     print(f"[+] {address} is connected.")
 
-    filename = "imageToSave{}.png"
+    filename = "Paint\emp\imageToSave{}.png"
 
 
-    for i in range(0,j): 
+    for i in range(1,t): 
         with open(filename.format(i), "rb") as f:
             while True:
                 bytes_read = f.read(BUFFER_SIZE)

@@ -19,10 +19,10 @@
 -- Table structure for table `authentication`
 --
 
-DROP TABLE IF EXISTS `authentication`;
+DROP TABLE IF EXISTS `paint`.`authentication`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `authentication` (
+CREATE TABLE `paint`.`authentication` (
   `f_name` varchar(50) NOT NULL,
   `l_name` varchar(50) NOT NULL,
   `uname` varchar(100) NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `authentication` (
 -- Dumping data for table `authentication`
 --
 
-LOCK TABLES `authentication` WRITE;
-/*!40000 ALTER TABLE `authentication` DISABLE KEYS */;
-INSERT INTO `authentication` VALUES ('Manuvikash','Saravanakumar','manu','What\'s your pet name?','cookie','cookie'),('Ritika','Loganayagi','ritika','What\'s your pet name?','manu','ritika'),('test','user','testuser','What\'s your pet name?','dogbot','test');
-/*!40000 ALTER TABLE `authentication` ENABLE KEYS */;
+LOCK TABLES `paint`.`authentication` WRITE;
+/*!40000 ALTER TABLE `paint`.`authentication` DISABLE KEYS */;
+INSERT INTO `paint`.`authentication` VALUES ('Manuvikash','Saravanakumar','manu','What\'s your pet name?','cookie','cookie'),('Ritika','Loganayagi','ritika','What\'s your pet name?','manu','ritika'),('test','user','testuser','What\'s your pet name?','dogbot','test');
+/*!40000 ALTER TABLE `paint`.`authentication` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
