@@ -60,8 +60,6 @@ class connection:
         today = date.today()
         tdate = str(today.strftime("%Y-%m-%d"))
 
-        
-
         try:
             sql_insert_blob_query = """ INSERT INTO images (imgid, date, author, image, result, label) VALUES (%s,%s,%s,%s,%s,%s)"""
             insert_blob_tuple = (imgid, tdate, author, file, res, prompt)
@@ -70,6 +68,20 @@ class connection:
 
         except mysql.connector.Error as error:
             print("Failed inserting BLOB data into MySQL table {}".format(error))
+
+
+    def getHistory(self, user):
+        sql = "SELECT result FROM images WHERE author = %s"
+        self.cursor.execute(sql, (user,))
+        result = self.cursor.fetchall()
+        passc = 0
+        failc = 0
+        for i in result:
+            if(i[0] == "pass"):
+                passc+=1
+            else:
+                failc+=1
+        return [passc, failc]
 
     def close(self):
         self.conn.close()
