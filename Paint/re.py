@@ -4,7 +4,7 @@ import socket
 def rec(host,port):
     BUFFER_SIZE = 4096 
     
-    filename = "imageToSave{}.png"
+    filename = "imgs\imageToSave{}.png"
     s = socket.socket()
 
     print(f"[+] Connecting to {host}:{port}")
@@ -22,4 +22,4 @@ def rec(host,port):
     s.close()
 
 
-rec('0.tcp.in.ngrok.io',15488)
+rec('0.tcp.in.ngrok.io',11040)
