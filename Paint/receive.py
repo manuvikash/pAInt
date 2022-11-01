@@ -15,7 +15,7 @@ def rec(host,port):
     x = int.from_bytes(x,'big')
     print(x)
 
-    for i in range(0,x):
+    for i in range(1,x):
         with open(filename.format(i), "wb") as f:
 
             bytes_read = s.recv(BUFFER_SIZE)
@@ -23,4 +23,4 @@ def rec(host,port):
     s.close()
 
 
-rec('127.0.0.1',5001)
+

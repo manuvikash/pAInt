@@ -167,7 +167,7 @@ while run:
                 menuState = "download"
                 pg.display.set_caption("Download Dataset")
                 # Download functionality here
-                re.rec("0.tcp.in.ngrok.io",17256) #only works if server running and ip and host are configured properly
+                re.rec('127.0.0.1',5001) #only works if server running and ip and host are configured properly
                 downloadScreen()
 
             if history_button.draw(screen):
