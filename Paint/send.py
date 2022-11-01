@@ -17,7 +17,7 @@ def send():
 
     client_socket, address = s.accept() 
 
-    x = DBaccess('root','hmm')
+    x = DBaccess('root','root')
     j = x.getImg()
 
     j = j.to_bytes(2,'big')
