@@ -29,6 +29,7 @@ class Interface:
         self.blacklist.append(self.prompt)
         
         pg.init()
+        pg.display.set_caption("Game")
         screen = pg.display.set_mode((self.xdim,self.ydim))
         bgcolor = (255,199,199)
         screen.fill(bgcolor)

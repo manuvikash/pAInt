@@ -9,10 +9,29 @@ import pygame as pg
 import button
 import cred as cr
 
+def downloadScreen():
+    pg.init()
+    screen = pg.display.set_mode((800,600))
+    pg.display.set_caption("Download dataset")
+    screen.fill((255,199,199))
+    my_font = pg.font.SysFont('Comic Sans MS', 45)
+    text_surface = my_font.render("Downloading all stored images...", False, (0,0,0))
+    screen.blit(text_surface, (100,200))
+    pg.display.flip()
+    loop = 1
+    while loop:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                loop = 0
+                return False
+    pg.quit()
+
+
 def history(user):
     conn = DBaccess.connection(cr.user, cr.password)
     h = conn.getHistory(user)
     pg.init()
+    pg.display.set_caption("History")
     screen = pg.display.set_mode((800,600))
     screen.fill((255,199,199))
     my_font = pg.font.SysFont('Comic Sans MS', 45)
@@ -138,7 +157,6 @@ while run:
             if playnow_button.draw(screen):
                 menuState = "game"
                 pg.quit()
-                pg.display.set_caption("Game")
                 # Game functionality here
                 counter = 0
                 d = draw.Interface(800,800)
@@ -150,10 +168,10 @@ while run:
                 pg.display.set_caption("Download Dataset")
                 # Download functionality here
                 re.rec("0.tcp.in.ngrok.io",17256) #only works if server running and ip and host are configured properly
+                downloadScreen()
 
             if history_button.draw(screen):
                 menuState = "history"
-                pg.quit()
                 pg.display.set_caption("View History")
                 # redirect to history button page
                 history(user)
@@ -161,7 +179,7 @@ while run:
     else:
         # game is not paused
         draw_text("pAInt", arial, black, 300, 250)
-        draw_text("Press space to atart!", arial, black, 100, 300)
+        draw_text("Press space to start!", arial, black, 100, 300)
     # Checking possible events in the game
     for event in pg.event.get():
         # If a quit action is being initiated

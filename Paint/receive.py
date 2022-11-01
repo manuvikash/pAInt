@@ -22,4 +22,4 @@ def rec(host,port):
     s.close()
 
 
-rec('0.tcp.in.ngrok.io',15488)
+# rec('0.tcp.in.ngrok.io',15488)
